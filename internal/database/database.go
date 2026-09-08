@@ -5,15 +5,21 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-func Connect() (*pgx.Conn, error) {
+func Connect() (*pgxpool.Pool, error) {
 	connString := os.Getenv("DATABASE_URL")
 
-	conn, err := pgx.Connect(context.Background(), connString)
+	pool, err := pgxpool.New(context.Background(), connString)
 	if err != nil {
-		fmt.Println("Error connecting to the database:", err)
+		fmt.Println("Error creating database pool:", err)
+		return nil, err
 	}
-	return conn, err
+	if err := pool.Ping(context.Background()); err != nil {
+		fmt.Println("Error connecting to the database:", err)
+		pool.Close()
+		return nil, err
+	}
+	return pool, nil
 }

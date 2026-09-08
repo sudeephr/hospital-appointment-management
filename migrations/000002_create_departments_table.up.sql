@@ -1,4 +1,4 @@
 CREATE TABLE departments (
-    id UUID PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );

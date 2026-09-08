@@ -1,7 +1,7 @@
 CREATE TABLE appointments (
-    id UUID PRIMARY KEY,
-    patient_id UUID NOT NULL,
-    doctor_id UUID NOT NULL,
+    id SERIAL PRIMARY KEY,
+    patient_id INTEGER NOT NULL,
+    doctor_id INTEGER NOT NULL,
     appointment_date DATE NOT NULL,
     appointment_time TIME NOT NULL,
     status VARCHAR(20) NOT NULL,
