@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package doctor;
+
+option go_package = "./api/proto";
+
+service DoctorService {
+    rpc CreateDoctor(CreateDoctorRequest) returns (CreateDoctorResponse);
+    rpc GetDoctors(GetDoctorsRequest) returns (GetDoctorsResponse);
+    rpc GetDoctorById(GetDoctorByIdRequest) returns (GetDoctorByIdResponse);
+    rpc UpdateDoctorById(UpdateDoctorByIdRequest) returns (UpdateDoctorByIdResponse);
+    rpc DeleteDoctorById(DeleteDoctorByIdRequest) returns (DeleteDoctorByIdResponse);
+}
+
+message CreateDoctorRequest {
+    string name = 1;
+    string specialization = 2;
+    string available_days = 3;
+    int32 department_id = 4;
+}
+
+message CreateDoctorResponse {
+    Doctor doctor = 1;
+}
+
+message GetDoctorsRequest {}
+
+message GetDoctorsResponse {
+    repeated Doctor doctors = 1;
+}
+
+message GetDoctorByIdRequest {
+    string id = 1;
+}
+
+message GetDoctorByIdResponse {
+    Doctor doctor = 1;
+}
+
+message UpdateDoctorByIdRequest {
+    int32 id = 1;
+    string name = 2;
+    string specialization = 3;
+    string available_days = 4;
+    int32 department_id = 5;
+}
+
+message UpdateDoctorByIdResponse {
+    Doctor doctor = 1;
+}
+
+message DeleteDoctorByIdRequest {
+    string id = 1;
+}
+
+message DeleteDoctorByIdResponse {
+    string message = 1;
+}
+
+message Doctor {
+    string id = 1;
+    string name = 2;
+    string specialization = 3;
+    string available_days = 4;
+    string department_id = 5;
+}

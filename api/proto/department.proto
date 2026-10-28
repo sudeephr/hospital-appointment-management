@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package department;
+
+option go_package = "./api/proto";
+
+service DepartmentService {
+    rpc CreateDepartment(CreateDepartmentRequest) returns (CreateDepartmentResponse);
+    rpc GetDepartments(GetDepartmentsRequest) returns (GetDepartmentsResponse);
+    rpc GetDepartmentById(GetDepartmentByIdRequest) returns (GetDepartmentByIdResponse);
+    rpc UpdateDepartmentById(UpdateDepartmentByIdRequest) returns (UpdateDepartmentByIdResponse);
+    rpc DeleteDepartmentById(DeleteDepartmentByIdRequest) returns (DeleteDepartmentByIdResponse);
+}
+
+message CreateDepartmentRequest {
+    string name = 1;
+}
+
+message CreateDepartmentResponse {
+    Department department = 1;
+}
+
+message GetDepartmentsRequest {
+}
+
+message GetDepartmentsResponse {
+    repeated Department departments = 1;
+}
+
+message GetDepartmentByIdRequest {
+    string id = 1;
+}
+
+message GetDepartmentByIdResponse {
+    Department department = 1;
+}
+
+message UpdateDepartmentByIdRequest {
+    int32 id = 1;
+    string name = 2;
+}
+
+message UpdateDepartmentByIdResponse {
+    Department department = 1;
+}
+
+message DeleteDepartmentByIdRequest {
+    string id = 1;
+}
+
+message DeleteDepartmentByIdResponse {
+    string message = 1;
+}
+
+message Department {
+    string id = 1;
+    string name = 2;
+}

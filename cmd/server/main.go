@@ -28,18 +28,30 @@ func main() {
 		log.Fatal(err)
 	}
 	defer pool.Close()
-	// Initialize the patient repository
+	// Initialize the  repository
 	patientRepo := repository.NewPatientRepository(pool)
+	departmentRepo := repository.NewDepartmentRepository(pool)
+	doctorRepo := repository.NewDoctorRepository(pool)
+	appointmentRepo := repository.NewAppointmentRepository(pool)
 
-	// Initialize the patient service
+	// Initialize the  service
 	patientService := service.NewPatientService(patientRepo)
+	departmentService := service.NewDepartmentService(departmentRepo)
+	doctorService := service.NewDoctorService(doctorRepo)
+	appointmentService := service.NewAppointmentService(appointmentRepo)
 
-	// Initialize the patient handler
+	// Initialize the  handler
 	patientHandler := handler.NewPatientHandler(patientService)
+	departmentHandler := handler.NewDepartmentHandler(departmentService)
+	doctorHandler := handler.NewDoctorHandler(doctorService)
+	appointmentHandler := handler.NewAppointmentHandler(appointmentService)
 
-	// Create a new gRPC server and register the patient handler
+	// Create a new gRPC server and register the  handler
 	grpcServer := grpc.NewServer()
 	pb.RegisterPatientServiceServer(grpcServer, patientHandler)
+	pb.RegisterDepartmentServiceServer(grpcServer, departmentHandler)
+	pb.RegisterDoctorServiceServer(grpcServer, doctorHandler)
+	pb.RegisterAppointmentServiceServer(grpcServer, appointmentHandler)
 
 	// opening a network listener on TCP port 8080. This listener will accept incoming network connections on that port.
 	listener, err := net.Listen("tcp", ":8080")
